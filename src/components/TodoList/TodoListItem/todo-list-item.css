@@ -22,8 +22,14 @@
     border: 1px solid #e5e5e5;
     background-color: #fff;
     color: #000;
-    padding: 5px 10px;
+    padding: 3px 10px;
     cursor: pointer;
     font-size: 12px;
     border-radius: 2px;
+    margin-top: -5px;
+    transition: all 0.3s ease;
+}
+
+.item-btns button:hover {
+    background-color: #edffdc;
 }

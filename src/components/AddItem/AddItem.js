@@ -1,6 +1,8 @@
+import './add-item.css';
+
 const AddItem = () => {
   return (
-    <div>
+    <div className='additem'>
       <input type="text" placeholder="Item text..." />
       <button>Add item</button>
     </div>

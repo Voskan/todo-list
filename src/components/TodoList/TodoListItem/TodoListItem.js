@@ -1,4 +1,5 @@
 import './todo-list-item.css';
+import { FaTrash, FaInfo, FaCheck } from 'react-icons/fa6';
 
 const TodoListItem = ({ text, important }) => {
   const style = {
@@ -10,11 +11,9 @@ const TodoListItem = ({ text, important }) => {
       {text}
 
       <span className='item-btns'>
-        <button className='item-btn-done'>Done</button>
-        <button className='item-btn-important'>Important</button>
-        <button className='item-btn-remove'>
-          Delete
-        </button>
+        <button className='item-btn-done'><FaCheck /></button>
+        <button className='item-btn-important'><FaInfo /></button>
+        <button className='item-btn-remove'><FaTrash /></button>
       </span>
     </li>
   );
