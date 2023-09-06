@@ -1,0 +1,7 @@
+.message-alert {
+    padding: 10px 14px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background-color: #eee;
+}
