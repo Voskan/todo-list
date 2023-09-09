@@ -18,11 +18,26 @@ class App extends Component {
     ],
   }
 
+  deletItem = (id) => {
+    this.setState(({ items }) => {
+      const idx = items.findIndex((el) => el.id === id)
+  
+      return {
+        items: [
+          ...items.slice(0, idx),
+          ...items.slice(idx + 1)
+        ]
+      }
+    })
+  }
+
   onAddItem = (text) => {
+    const id = this.state.items.length ? this.state.items[this.state.items.length - 1].id + 1 : 1
+
     const newItem = {
       text,
       important: false,
-      id: this.state.items[this.state.items.length - 1].id + 1
+      id
     };
 
     this.setState((prevState) => {
@@ -37,7 +52,7 @@ class App extends Component {
       <div className="app">
         <Header done={8} important={23} />
         <Search />
-        <TodoList items={this.state.items} />
+        <TodoList items={this.state.items} deletItem={this.deletItem} />
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );

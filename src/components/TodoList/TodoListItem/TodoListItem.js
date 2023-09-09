@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { FaTrash, FaInfo, FaCheck } from 'react-icons/fa6';
+import { FaTrash, FaInfo, FaCheck, FaPenToSquare } from 'react-icons/fa6';
 
 import './todo-list-item.css';
 
@@ -21,6 +21,10 @@ class TodoListItem extends Component {
     });
   }
 
+  onDelete = () => {
+    this.props.deletItem(this.props.id)
+  }
+
   render() {
     const { text } = this.props;
     const { isDone, isImportant } = this.state;
@@ -38,9 +42,10 @@ class TodoListItem extends Component {
         </span>
   
         <span className='item-btns'>
+          <button><FaPenToSquare /></button>
           <button className='item-btn-done' onClick={ this.onDone }><FaCheck /></button>
           <button className='item-btn-important' onClick={ this.onImportant }><FaInfo /></button>
-          <button className='item-btn-remove'><FaTrash /></button>
+          <button className='item-btn-remove' onClick={this.onDelete}><FaTrash /></button>
         </span>
       </li>
     );

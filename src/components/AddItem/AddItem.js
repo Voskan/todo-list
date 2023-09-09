@@ -22,7 +22,12 @@ class AddItem extends Component {
   render() {
     return (
       <div className='additem'>
-        <input type="text" value={this.state.inputValue} placeholder="Item text..." onChange={this.onInputChange} />
+        <input
+          type="text"
+          value={this.state.inputValue}
+          placeholder="Item text..."
+          onChange={this.onInputChange}
+        />
         <button onClick={this.onBtnClick}>Add item</button>
       </div>
     )
