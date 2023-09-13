@@ -16,7 +16,8 @@ class App extends Component {
       { text: "Learn TypeScript", important: true, done: false, id: 4 },
       { text: "Learn Node.js", important: false, done: false, id: 5 },
     ],
-    term: ''
+    term: '',
+    filter: 'all', // all, done, important
   }
 
   onSearch = (term) => {
@@ -102,14 +103,34 @@ class App extends Component {
     })
   }
 
+  onFilter = (items, filterBtn) => {
+    switch(filterBtn) {
+      case 'all':
+        return items;
+      case 'done':
+        return items.filter((el) => el.done)
+      case 'important':
+        return items.filter((el) => el.important && !el.done)
+      default:
+        return items
+    }
+  }
+
+  onFilterChange = (filter) => {
+    this.setState({ filter })
+  }
+
   render () {
-    const { items, term } = this.state;
-    const visibleItems = this.handleSearch(items, term)
+    const { items, term, filter } = this.state;
+    const visibleItems = this.onFilter(this.handleSearch(items, term), filter)
+
+    const doneCount = items.filter((el) => el.done).length
+    const importantCount = items.filter((el) => el.important && !el.done).length
 
     return (
       <div className="app">
-        <Header done={8} important={23} />
-        <Search onSearch={this.onSearch} />
+        <Header done={doneCount} important={importantCount} />
+        <Search onSearch={this.onSearch} onFilterChange={this.onFilterChange} />
         <TodoList
           items={visibleItems}
           deletItem={this.deletItem}

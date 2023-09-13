@@ -8,6 +8,12 @@ export default class Search extends Component {
     term: ''
   }
 
+  buttons = [
+    { name: 'all', text: 'All', className: 'search-btn-all' },
+    { name: 'done', text: 'Done', className: 'search-btn-done' },
+    { name: 'important', text: 'Important', className: 'search-btn-important' }
+  ]
+
   onSearchChange = (e) => {
     this.setState({
       term: e.target.value
@@ -25,9 +31,19 @@ export default class Search extends Component {
           onChange={this.onSearchChange}
           placeholder="Type text for search..."
         />
-        <button className='search-btn-all'>All</button>
-        <button className='search-btn-done'>Done</button>
-        <button className='search-btn-important'>Important</button>
+        {
+          this.buttons.map(({ name, text, className }) => {
+            return (
+              <button
+                className={className}
+                key={name}
+                onClick={() => { this.props.onFilterChange(name) } }
+              >
+                {text}
+              </button>
+            )
+          })
+        }
       </div>
     );
   }
