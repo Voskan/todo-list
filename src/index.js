@@ -18,6 +18,18 @@ class App extends Component {
     ],
   }
 
+  // text = ""
+  /**
+   * items: [
+      { text: "Learn JS", important: true, id: 1 },
+      { text: "Learn Node.js", important: false, id: 5 },
+    ],
+   * 
+   * **/
+  handleSearch = (text) => {
+
+  }
+
   deletItem = (id) => {
     this.setState(({ items }) => {
       const idx = items.findIndex((el) => el.id === id)
