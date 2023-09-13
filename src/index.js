@@ -16,18 +16,21 @@ class App extends Component {
       { text: "Learn TypeScript", important: true, id: 4 },
       { text: "Learn Node.js", important: false, id: 5 },
     ],
+    term: ''
   }
 
-  // text = ""
-  /**
-   * items: [
-      { text: "Learn JS", important: true, id: 1 },
-      { text: "Learn Node.js", important: false, id: 5 },
-    ],
-   * 
-   * **/
-  handleSearch = (text) => {
+  onSearch = (term) => {
+    this.setState({ term })
+  }
 
+  handleSearch = (items, term) => {
+    if (term.trim().length === 0) {
+      return items;
+    }
+
+    return items.filter((item) => {
+      return item.text.toLowerCase().indexOf(term.toLowerCase()) > -1
+    })
   }
 
   deletItem = (id) => {
@@ -59,12 +62,45 @@ class App extends Component {
     })
   }
 
+  onImportant = (id) => {
+    this.setState(({ items }) => {
+      const idx = items.findIndex((el) => el.id === id)
+
+      const newItem = {
+        ...items[idx],
+        important: !items[idx].important
+      }
+
+      console.log([
+        ...items.slice(0, idx),
+        newItem,
+        ...items.slice(idx + 1)
+      ]);
+
+      return {
+        items: [
+          ...items.slice(0, idx),
+          newItem,
+          ...items.slice(idx + 1)
+        ]
+      }
+      
+    })
+  }
+
   render () {
+    const { items, term } = this.state;
+    const visibleItems = this.handleSearch(items, term)
+
     return (
       <div className="app">
         <Header done={8} important={23} />
-        <Search />
-        <TodoList items={this.state.items} deletItem={this.deletItem} />
+        <Search onSearch={this.onSearch} />
+        <TodoList
+          items={visibleItems}
+          deletItem={this.deletItem}
+          onImportant={this.onImportant}
+        />
         <AddItem onAddItem={this.onAddItem} />
       </div>
     );

@@ -22,11 +22,7 @@ class TodoListItem extends Component {
   }
 
   onImportant = () => {
-    this.setState(({ isImportant }) => {
-      return {
-        isImportant: !isImportant
-      }
-    });
+    this.props.onImportant(this.props.id)
   }
 
   onDelete = () => {
