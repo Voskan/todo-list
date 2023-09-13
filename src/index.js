@@ -10,11 +10,11 @@ class App extends Component {
 
   state = {
     items: [
-      { text: "Learn JS", important: true, id: 1 },
-      { text: "Drink Coffee", important: false, id: 2 },
-      { text: "Learn React", important: false, id: 3 },
-      { text: "Learn TypeScript", important: true, id: 4 },
-      { text: "Learn Node.js", important: false, id: 5 },
+      { text: "Learn JS", important: true, done: false, id: 1 },
+      { text: "Drink Coffee", important: false, done: false, id: 2 },
+      { text: "Learn React", important: false, done: false, id: 3 },
+      { text: "Learn TypeScript", important: true, done: false, id: 4 },
+      { text: "Learn Node.js", important: false, done: false, id: 5 },
     ],
     term: ''
   }
@@ -71,11 +71,25 @@ class App extends Component {
         important: !items[idx].important
       }
 
-      console.log([
-        ...items.slice(0, idx),
-        newItem,
-        ...items.slice(idx + 1)
-      ]);
+      return {
+        items: [
+          ...items.slice(0, idx),
+          newItem,
+          ...items.slice(idx + 1)
+        ]
+      }
+      
+    })
+  }
+
+  onDone = (id) => {
+    this.setState(({ items }) => {
+      const idx = items.findIndex((el) => el.id === id)
+
+      const newItem = {
+        ...items[idx],
+        done: !items[idx].done
+      }
 
       return {
         items: [
@@ -100,6 +114,7 @@ class App extends Component {
           items={visibleItems}
           deletItem={this.deletItem}
           onImportant={this.onImportant}
+          onDone={this.onDone}
         />
         <AddItem onAddItem={this.onAddItem} />
       </div>

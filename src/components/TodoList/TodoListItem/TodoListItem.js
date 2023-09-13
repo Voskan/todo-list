@@ -6,19 +6,13 @@ import './todo-list-item.css';
 
 class TodoListItem extends Component {
   state = {
-    isDone: false,
-    isImportant: this.props.important,
     isEdit: false,
     text: this.props.text,
     isError: false,
   }
 
   onDone = () => {
-    this.setState(({ isDone }) => {
-      return {
-        isDone: !isDone
-      }
-    });
+    this.props.onDone(this.props.id)
   }
 
   onImportant = () => {
@@ -51,12 +45,13 @@ class TodoListItem extends Component {
   }
 
   render() {
-    const { isDone, isImportant, isEdit, isError, text } = this.state;
+    const { isEdit, isError, text } = this.state;
+    const { important, done } = this.props;
 
     const textStyle = {
-      textDecoration: isDone ? 'line-through' : 'none',
-      color: isDone ? '#aaa' : (isImportant ? 'red': 'black'),
-      fontWeight: isDone ? "normal": (isImportant ? "bold" : "normal"),
+      textDecoration: done ? 'line-through' : 'none',
+      color: done ? '#aaa' : (important ? 'red': 'black'),
+      fontWeight: done ? "normal": (important ? "bold" : "normal"),
     }
 
     const inputStyle = {
